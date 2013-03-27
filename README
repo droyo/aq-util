@@ -1,0 +1,7 @@
+To build:
+
+- edit config.mk
+- make
+
+To install:
+- make install

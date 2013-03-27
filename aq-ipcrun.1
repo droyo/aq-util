@@ -1,0 +1,51 @@
+.TH AQ-IPCRUN 1
+.SH NAME
+aq-ipcrun \- connect a program to a socket
+.SH SYNOPSIS
+.B aq-ipcrun
+[ -f
+.I fd
+]
+.I sock prog ...
+.SH DESCRIPTION
+.I Aq-ipcrun
+connects to the unix domain socket
+.IR sock .
+Upon making a successful connection,
+.I aq-ipcrun
+attaches its standard input and output
+to the socket and replaces itself with
+.I prog
+using the
+.IR execvp (3)
+function. If the number
+.I fd
+is specified,
+.I prog is executed with file descriptor
+.I fd
+connected to the socket.
+.SH RETURN VALUE
+If
+.I aq-ipcrun
+cannot connect to the socket it will
+print a message to standard error and
+exit with error code 100. If
+.I aq-ipcrun
+fails to execute
+.IR prog ,
+it will exit with error code 111.
+.SH EXAMPLE
+.IP
+.EX
+aq-ipcrun /var/run/httpd.sock /bin/sh -c '
+	(echo GET / HTTP/1.0; cat)'
+.EE
+.SH AUTHOR
+David A. Arroyo
+droyo@aqwari.us
+.SH CAVEATS
+Some utilities will close standard input or output on termination. If it is desired to keep 
+.I sock
+open for the duration of
+.IR prog 's
+execution, it should be opened on a non-standard file descriptor.
