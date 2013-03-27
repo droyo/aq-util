@@ -1,7 +1,1 @@
-To build:
-
-- edit config.mk
-- make
-
-To install:
-- make install
+Aq-util is a set of small unix utilities. Odds and ends, really.
