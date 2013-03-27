@@ -50,4 +50,10 @@ install: $(BIN) $(MAN)
 clean:
 	rm -f $(OBJ) $(BIN) aq-util-${VERSION}.tar.gz
 
-.phony: all options clean install dist
+release:
+	@echo git checkout master
+	@echo git tag -a ${VERSION}
+	@echo git push origin master
+	@echo git push origin --tags
+
+.phony: all options clean install dist release
