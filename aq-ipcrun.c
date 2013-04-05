@@ -5,10 +5,7 @@
 #include <sys/un.h>
 #include "util.h"
 
-static const char * argv0;
-static void usage(void);
-
-static void usage(void) {
+static void usage(const char *argv0) {
 	die(2, "Usage: %s [-f fd] sock prog ...\n", argv0);
 }
 
@@ -22,7 +19,6 @@ int main(int argc, char **argv) {
 	
 	fdi = 0;
 	fdo = 1;
-	argv0 = argv[0];
 	
 	while ((opt = getopt(argc, argv, "+r:w:")) != -1) {
 		switch(opt) {
@@ -30,7 +26,7 @@ int main(int argc, char **argv) {
 			fdi = fdo = atoi(optarg);
 			break;
 		default:
-			usage();
+			usage(argv[0]);
 		}
 	}
 
@@ -38,7 +34,7 @@ int main(int argc, char **argv) {
 		fail(111, "socket");
 	}
 	if (argc - optind < 2) {
-		usage();
+		usage(argv[0]);
 	}
 	
 	memset(&a, 0, sizeof(a));
