@@ -1,1 +1,10 @@
-Aq-util is a set of small unix utilities. Odds and ends, really.
+Aq-util is a set of small unix utilities. They are written to
+offer up more of a Unix system's functionality to ordinary
+shell scripts, and to make shell scripting more powerful
+and viable.
+
+aq-ipcrun(1)
+	Connect a program to a socket
+
+readopt(8)
+	Quickly parse simple command-line options

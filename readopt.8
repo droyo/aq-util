@@ -1,0 +1,61 @@
+.TH READOPT 8
+.SH NAME
+readopt \- command-line parsing for shell scripts
+.SH SYNOPSIS
+.B readopt [ -s ] 
+.I optspec
+"$@"
+.SH DESCRIPTION
+.I Readopt
+parses the options in its command-line arguments according to the option
+specification string
+.IR optspec .
+.I Optspec
+is a comma-separated string, with the first letter of each field representing
+the flag's letter. If the field contains any more text, the option specified
+must have an argument.
+.PP
+Upon successfully parsing the argument string,
+.I readopt
+prints a
+.IR sh (1)
+script on standard output which initializes the environment variable
+.BI $flag x
+for every option mentioned in
+.IR optspec .
+If the option is present on the command-line the script sets that
+option's flag variable with the option's argument or, if the option
+takes no arguments, with the string
+.BR 1 .
+If the option is not present, the flag variable is set to the empty
+string.
+.PP
+If the 
+.B -s
+option is specified, the script also sets the variable
+.B $@
+to contain the remainder of the command-line with the parsed options
+removed. If an unspecified option is present in the command-line,
+or some other error occurs,
+.I readopt
+will set the variable
+.BI $status
+to 'usage'.
+.SH EXAMPLE
+.IP
+.EX
+flagfmt='u user, p pass, h host'
+eval `readopt -s "$flagfmt" "$@"`
+.EE
+.SH AUTHOR
+David A. Arroyo
+<droyo@aqwari.us>
+.SH BUGS
+.I Readopt
+does not handle cases where an option name may be specified 
+more than once. In such an instance, the value of the relevant
+.BI $flag x
+variable will be the argument to the final instance of the
+option in the command-line.
+.PP
+Options can only have zero or one arguments.

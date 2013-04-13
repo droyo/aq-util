@@ -8,6 +8,7 @@ Requirements
 ------------
 - A C compiler and linker (gcc, tcc, pcc)
 - A unix system
+- Awk, bourne shell
 
 Parameters
 ----------
