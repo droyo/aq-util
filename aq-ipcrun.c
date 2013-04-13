@@ -5,7 +5,9 @@
 #include <sys/un.h>
 #include "util.h"
 
-void usage(char *);
+static void usage(const char *argv0) {
+	die(2, "Usage: %s [-f fd] sock prog ...\n", argv0);
+}
 
 int main(int argc, char **argv) {
 	int s;
@@ -24,7 +26,7 @@ int main(int argc, char **argv) {
 			fdi = fdo = atoi(optarg);
 			break;
 		default:
-			die(2, "Usage: %s sock prog ...\n", argv[0]);
+			usage(argv[0]);
 		}
 	}
 
@@ -32,7 +34,7 @@ int main(int argc, char **argv) {
 		fail(111, "socket");
 	}
 	if (argc - optind < 2) {
-		die(2, "Usage: %s [-r fd] [-w fd] sock prog ...\n", argv[0]);
+		usage(argv[0]);
 	}
 	
 	memset(&a, 0, sizeof(a));

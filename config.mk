@@ -1,7 +1,7 @@
-VERSION = 0.1
-PREFIX = /usr/local
-MANPREFIX = /usr/local/man
+VERSION   = 0.2
+PREFIX    = /usr/local
+MANPREFIX = $(PREFIX)/man
 CC = gcc
 LD = $(CC)
-CFLAGS = -Wall -Werror
+CFLAGS  = -Wall -Werror
 LDFLAGS = -static
