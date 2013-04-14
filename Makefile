@@ -12,10 +12,11 @@ all: options $(BIN)
 
 options:
 	@echo Build options:
-	@echo "	CFLAGS   = $(CFLAGS)"
-	@echo "	LDFLAGS  = $(LDFLAGS)"
-	@echo "	CC       = $(CC)"
-	@echo "	PREFIX   = $(PREFIX)"
+	@echo "	CFLAGS    = $(CFLAGS)"
+	@echo "	LDFLAGS   = $(LDFLAGS)"
+	@echo "	CC        = $(CC)"
+	@echo "	PREFIX    = $(PREFIX)"
+	@echo "	MANPREFIX = $(MANPREFIX)"
 
 aq-ipcrun: aq-ipcrun.o util.o
 	@echo LD $@
@@ -49,7 +50,7 @@ install: $(BIN) installman
 
 installman: $(MAN)
 	@for i in $(MAN); do \
-		dir=$(DESTDIR)/man$${i##*.}; \
+		dir=$(DESTDIR)$(MANPREFIX)/man$${i##*.}; \
 		mkdir -p $$dir; \
 		$(GZIP) < $$i > $$dir/$$i.gz; \
 		echo INSTALL $$i; \
