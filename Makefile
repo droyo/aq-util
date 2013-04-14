@@ -6,7 +6,7 @@ BIN = aq-ipcrun readopt
 MAN = aq-ipcrun.1 readopt.8
 DOC = LICENSE README
 HDR = util.h
-GZIP = gzip -c
+GZIP = gzip
 
 all: options $(BIN)
 
@@ -52,7 +52,9 @@ installman: $(MAN)
 	@for i in $(MAN); do \
 		dir=$(DESTDIR)$(MANPREFIX)/man$${i##*.}; \
 		mkdir -p $$dir; \
-		$(GZIP) < $$i > $$dir/$$i.gz; \
+		cp $$i $$dir/$$i; \
+		chmod 0644 $$dir/$$i; \
+		$(GZIP) $$dir/$$i; \
 		echo INSTALL $$i; \
 	done
 
