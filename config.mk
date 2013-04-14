@@ -1,4 +1,4 @@
-VERSION   = dev
+VERSION   = 0.3
 PREFIX    = /usr/local
 MANPREFIX = $(PREFIX)/man
 CC = gcc
